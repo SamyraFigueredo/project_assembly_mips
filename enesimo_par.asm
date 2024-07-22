@@ -39,6 +39,7 @@ main:
     li $v0, 10          # Código de syscall para finalizar o programa
     syscall             # Executa o syscall para encerrar o programa
 
+#rótulo (label)
 not_even:
     # Imprimir mensagem de número não par
     li $v0, 4           # Carrega o valor 4 em $v0 para realizar a chamada do sistema para imprimir uma string
