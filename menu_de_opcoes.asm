@@ -85,20 +85,25 @@ calculate_fibonacci:
     move $t0, $v0
 
     # Inicializar variáveis
-    li $t1, 0
-    li $t2, 1
-    beq $t0, $t1, print_fib_0
-    li $t3, 1
-    beq $t0, $t3, print_fib_1
+    li $t1, 0        # F(0)
+    li $t2, 1        # F(1)
+    li $t3, 1        # Contador
 
-    li $t4, 2
+    # Se n for 0 ou 1, imprimir o resultado diretamente
+    bne $t0, $zero, check_one
+    j print_fib_0
+
+check_one:
+    bne $t0, $t3, fib_loop
+    j print_fib_1
 
 fib_loop:
-    bge $t4, $t0, print_fib
-    add $t3, $t1, $t2
-    move $t1, $t2
-    move $t2, $t3
-    addi $t4, $t4, 1
+    # Loop para calcular o enésimo termo
+    bge $t3, $t0, print_fib
+    add $t4, $t1, $t2   # t4 = F(n-1) + F(n-2)
+    move $t1, $t2       # F(n-2) = F(n-1)
+    move $t2, $t4       # F(n-1) = F(n)
+    addi $t3, $t3, 1    # Incrementa o contador
     j fib_loop
 
 print_fib:
@@ -119,11 +124,12 @@ print_fib:
     j main
 
 print_fib_0:
+    # Imprimir F(0)
     li $v0, 4
     la $a0, msg4
     syscall
-    li $a0, 0
     li $v0, 1
+    li $a0, 0
     syscall
 
     # Imprimir quebra de linha
@@ -135,11 +141,12 @@ print_fib_0:
     j main
 
 print_fib_1:
+    # Imprimir F(1)
     li $v0, 4
     la $a0, msg4
     syscall
-    li $a0, 1
     li $v0, 1
+    li $a0, 1
     syscall
 
     # Imprimir quebra de linha
