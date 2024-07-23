@@ -26,9 +26,8 @@ main:
     # Calcular o enésimo termo da sequência de Fibonacci
     li $t4, 2            # Inicializa o contador com 2 (começa do terceiro termo)
 
-# label para início do loop
 fib_loop: 
-    bge $t4, $t0, print_result # Se contador >= N, ir para print_result #salto se maior ou igual a que 
+    bge $t4, $t0, print_result # Se contador >= N, ir para print_result
     add $t3, $t1, $t2    # F(n) = F(n-1) + F(n-2)
 
     # Atualiza as variáveis
